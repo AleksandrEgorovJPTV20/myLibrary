@@ -56,7 +56,6 @@ public class App {
                     for (int i = 0; i < readers.length; i++){
                         if(readers[i] != null){
                             System.out.println(readers[i].toString());
-                            break;
                         }
                     }
                     break;
@@ -95,17 +94,12 @@ public class App {
     }
     private Reader addReader(){
         Reader reader = new Reader();
-        System.out.println("Количество читателей: ");
-        int countReaders = scanner.nextInt(); scanner.nextLine();
-        Reader[] readers = new Reader[countReaders];
-        for(int i = 0; i < readers.length; i++){
-            System.out.println("Введите имя читателя "+(i+1)+": ");
-            reader.setFirstName(scanner.nextLine());
-            System.out.println("Введите фамилию читателя "+(i+1)+": ");
-            reader.setSurname(scanner.nextLine());
-            System.out.println("Введите телефон читателя "+(i+1)+": ");
-            reader.setPhone(scanner.nextLine());
-        }    
+        System.out.print("Введите имя читателя: ");
+        reader.setFirstName(scanner.nextLine());
+        System.out.print("Введите фамилию читателя: ");
+        reader.setSurname(scanner.nextLine());
+        System.out.print("Введите телефон читателя: ");
+        reader.setPhone(scanner.nextLine());
         return reader;
     }
 }
