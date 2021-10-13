@@ -1,14 +1,19 @@
 package mylibrary;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import myclasses.Author;
 import myclasses.Book;
+import myclasses.History;
 import myclasses.Reader;
 
 public class App {
     private Scanner scanner = new Scanner(System.in);
     private Book[] books = new Book[10];
     private Reader[] readers = new Reader[10];
+    private History[] histories = new History[10];
+    
     public void run(){
         String repeat = "r";
         do{
@@ -17,7 +22,10 @@ public class App {
             System.out.println("1: Добавить книгу");
             System.out.println("2: Список книг");
             System.out.println("3: Добавить читателя");            
-            System.out.println("4: Список читателей");           
+            System.out.println("4: Список читателей");   
+            System.out.println("5: Выдать книгу");
+            System.out.println("6: Список выданных книг");
+            System.out.println("7: Возврат книг");
             int task = scanner.nextInt(); scanner.nextLine();       
             switch (task) {
                 case 0:
@@ -32,7 +40,7 @@ public class App {
                             break;
                             
                         }
-                    }
+                    }                   
                     break;
                 case 2:
                     System.out.println("----- Список книг -----");
@@ -59,11 +67,53 @@ public class App {
                         }
                     }
                     break;
+                case 5:
+                    System.out.println("----- Выдать книгу -----");
+                    for (int i = 0; i < histories.length;i++){
+                        if (histories[i] == null){
+                            histories[i] = addHistory();
+                            break;
+                        }
+                    }
+                    break;
+                case 6:
+                    System.out.println("----- Список выданных книг -----");
+                    printGivenBooks();
+                    break;
+                case 7:
+                    System.out.println("----- Возврат книги -----");
+                    System.out.println("Список выданных книг: ");
+                    printGivenBooks();
+                    System.out.println("Выберите номер возращаемой книги: ");
+                    int numberHistory = scanner.nextInt(); scanner.nextLine();
+                    Calendar c = new GregorianCalendar();
+                    histories[numberHistory - 1].setReturnedDate(c.getTime());
+                    System.out.printf("Книга \"%s\" возращена%n", histories[numberHistory-1].getBook().getBookName());
+                    System.out.println("");
+                    break;
                 default:
                     System.out.println("Введите номер из списка!");
             }
             
         }while("r".equals(repeat));
+        
+    }
+    private void printGivenBooks(){
+        int n = 0;
+        for (int i = 0; i < histories.length; i++){
+            if(histories[i] != null && histories[i].getReturnedDate() == null){
+                System.out.printf(i +1+". "+"Книгу %s читает %s %s. Выдана книга: %s%n",
+                        histories[i].getBook().getBookName(),
+                        histories[i].getReader().getFirstName(),
+                        histories[i].getReader().getSurname(),
+                        histories[i].getGivenDate().toString());        
+                n++;
+                }
+            }
+            if(n<1){
+                System.out.println("Нет выданных книг!");        
+            }
+            System.out.println();  
         
     }
     private Book addBook(){
@@ -102,4 +152,40 @@ public class App {
         reader.setPhone(scanner.nextLine());
         return reader;
     }
+    private History addHistory() {
+        History history = new History();
+        /**
+         * 1 Вывсти пронумерованный список книг библиотеки
+         * 2 Попросить пользователя выбрать номер книги
+         * 3 Вывести пронумерованный список читателей 
+         * 4 Попросить пользователя выбрать номер читателя
+         * 5 Сгенерировать текущую дату выдачи 
+         * 6 Иницирировать обьект history 
+         */
+        System.out.println("Список книг");
+        for (int i = 0; i < books.length; i++){
+            if(books[i] != null){
+                System.out.println(i+1+". "+books[i].toString());                   
+            }         
+        }
+        System.out.print("Введите номер книги: ");
+        int numberBook = scanner.nextInt(); scanner.nextLine();
+        
+        System.out.println("Вывести список читателей: ");
+        System.out.println("Список читателей");
+        for (int i = 0; i < readers.length; i++){
+            if(readers[i] != null){
+                System.out.println(i+1+". "+readers[i].toString());                   
+            }         
+        }
+        System.out.println("Введите номер читателя: ");
+        int numberReader = scanner.nextInt(); scanner.nextLine();
+        history.setBook(books[numberBook-1]);
+        history.setReader(readers[numberReader-1]);
+        Calendar c = new GregorianCalendar();
+        history.setGivenDate(c.getTime());
+        
+        return history;
+    }
+    
 }
