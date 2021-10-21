@@ -3,16 +3,24 @@ package mylibrary;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-import myclasses.Author;
-import myclasses.Book;
-import myclasses.History;
-import myclasses.Reader;
+import entity.Author;
+import entity.Book;
+import entity.History;
+import entity.Reader;
+import interfaces.Keeping;
+import tools.SaverToFile;
 
 public class App {
     private Scanner scanner = new Scanner(System.in);
     private Book[] books = new Book[10];
     private Reader[] readers = new Reader[10];
     private History[] histories = new History[10];
+    private Keeping keeper = new SaverToFile();
+
+    public App() {
+        books = keeper.loadBooks();
+        
+    }
     
     public void run(){
         String repeat = "r";
@@ -37,6 +45,7 @@ public class App {
                     for (int i = 0;i < books.length; i++){
                         if (books[i] == null){
                             books[i] = addBook();
+                            keeper.saveBooks(books);
                             break;
                             
                         }
@@ -187,5 +196,4 @@ public class App {
         
         return history;
     }
-    
 }
