@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
 public class SaverToFile implements Keeping{
 
     @Override
-    public void saveBooks(Book[] books) {
+    public void saveBooks(List<Book> books) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         
@@ -34,15 +36,15 @@ public class SaverToFile implements Keeping{
     }
 
     @Override
-    public Book[] loadBooks() {
-        Book[] books = new Book[10];
+    public List<Book> loadBooks() {
+        List<Book> books = new ArrayList<>();
         
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
             fis = new FileInputStream("books");
             ois = new ObjectInputStream(fis);
-            books = (Book[]) ois.readObject();
+            books = (List<Book>) ois.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SaverToFile.class.getName()).log(Level.INFO, "файл books ещё не создан", ex);
         } catch (IOException ex) {
@@ -56,7 +58,7 @@ public class SaverToFile implements Keeping{
     }
 
     @Override
-    public void saveReaders(Reader[] readers) {
+    public void saveReaders(List<Reader> readers) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         
@@ -73,15 +75,15 @@ public class SaverToFile implements Keeping{
     }
 
     @Override
-    public Reader[] loadReaders() {
-        Reader[] readers = new Reader[10];
+    public List<Reader> loadReaders() {
+        List<Reader> readers = new ArrayList<>();
         
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
             fis = new FileInputStream("readers");
             ois = new ObjectInputStream(fis);
-            readers = (Reader[]) ois.readObject();
+            readers = (List<Reader>) ois.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SaverToFile.class.getName()).log(Level.INFO, "файл readers ещё не создан", ex);
         } catch (IOException ex) {
@@ -95,7 +97,7 @@ public class SaverToFile implements Keeping{
     }
 
     @Override
-    public void saveHistories(History[] histories) {
+    public void saveHistories(List<History> histories) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         
@@ -112,15 +114,15 @@ public class SaverToFile implements Keeping{
     }
 
     @Override
-    public History[] loadHistories() {
-        History[] histories = new History[10];
+    public List<History> loadHistories() {
+        List<History> histories = new ArrayList<>();
         
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
             fis = new FileInputStream("histories");
             ois = new ObjectInputStream(fis);
-            histories = (History[]) ois.readObject();
+            histories = (List<History>) ois.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SaverToFile.class.getName()).log(Level.INFO, "файл histories ещё не создан", ex);
         } catch (IOException ex) {
