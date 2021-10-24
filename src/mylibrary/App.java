@@ -68,8 +68,12 @@ public class App {
                     break;
                 case 5:
                     System.out.println("----- Выдать книгу -----");
-                    histories.add(addHistory());
-                    keeper.saveHistories(histories);
+                    History history = addHistory();
+                    if(history != null){
+                        histories.add(history);
+                        keeper.saveHistories(histories);
+                        keeper.saveBooks(books);
+                    }
                     break;
                 case 6:
                     System.out.println("----- Список выданных книг -----");
@@ -78,7 +82,9 @@ public class App {
                 case 7:
                     System.out.println("----- Возврат книги -----");
                     System.out.println("Список выданных книг: ");
-                    printGivenBooks();
+                    if(!printGivenBooks()){
+                        break;
+                    }
                     System.out.println("Выберите номер возращаемой книги: ");
                     int numberHistory = scanner.nextInt(); scanner.nextLine();
                     Calendar c = new GregorianCalendar();
@@ -90,6 +96,8 @@ public class App {
                         System.out.println("Все экземпляры книги в библиотеке");
                     }
                     System.out.printf("Книга \"%s\" возращена%n", histories.get(numberHistory-1).getBook().getBookName());
+                    keeper.saveHistories(histories);
+                    keeper.saveBooks(books);
                     System.out.println("");
                     break;
                 default:
@@ -99,13 +107,14 @@ public class App {
         }while("r".equals(repeat));
         
     }
-    private void printGivenBooks(){
+    private boolean printGivenBooks(){
         int n = 0;
         for (int i = 0; i < histories.size(); i++){
             if(histories.get(i) != null
                     && histories.get(i).getReturnedDate() == null
                     && histories.get(i).getBook().getCount() < histories.get(i).getBook().getQuantity()){
-                System.out.printf(i +1+". "+"Книгу %s читает %s %s. Выдана книга: %s%n",
+                System.out.printf("%d. Книгу %s читает %s %s. Выдана книга: %s%n",
+                        i+1,
                         histories.get(i).getBook().getBookName(),
                         histories.get(i).getReader().getFirstName(),
                         histories.get(i).getReader().getSurname(),
@@ -114,11 +123,11 @@ public class App {
                 }
             }
             if(n<1){
-                System.out.println("Нет выданных книг!");        
+                System.out.println("Нет выданных книг!");
+                return false;
             }
-            System.out.println();  
-        
-    }
+            return true;  
+        }
     private Book addBook(){
         Book book = new Book();
         System.out.println("Введите название книги: ");
@@ -169,7 +178,9 @@ public class App {
          * 6 Иницирировать обьект history 
          */
         System.out.println("Список книг");
-        printListBooks();
+        if(!printListBooks()){
+            return null;
+        }
         System.out.print("Введите номер книги: ");
         int numberBook = scanner.nextInt(); scanner.nextLine();
         
@@ -193,11 +204,20 @@ public class App {
         return history;
     }
 
-    private void printListBooks() {
+    private boolean printListBooks() {
+        int booksForReaders = 0;
         for (int i = 0; i < books.size(); i++){
-            if(books.get(i) != null && books.get(i).getCount()> 0){
-                System.out.println(books.get(i).toString());
+            if(books.get(i) != null && books.get(i).getCount() > 0){
+                System.out.println(i+1+". "+books.get(i).toString());
+                booksForReaders++;
+            }else{
+                System.out.println(i+1+". "+"Книга: \""+books.get(i).getBookName()+"\" нет в наличии");
             }
         }
+        if(booksForReaders < 1){
+            System.out.println("Нет книг для чтения.");
+            return false;
+        }
+        return true;
     }
 }
