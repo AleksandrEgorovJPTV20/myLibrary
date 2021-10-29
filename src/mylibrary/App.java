@@ -8,6 +8,8 @@ import entity.Book;
 import entity.History;
 import entity.Reader;
 import interfaces.Keeping;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import tools.SaverToFile;
@@ -113,12 +115,14 @@ public class App {
             if(histories.get(i) != null
                     && histories.get(i).getReturnedDate() == null
                     && histories.get(i).getBook().getCount() < histories.get(i).getBook().getQuantity()){
-                System.out.printf("%d. Книгу %s читает %s %s. Выдана книга: %s%n",
+                System.out.printf("%d. Книгу %s читает %s %s. Выдана книга: %s Предпологаемое время возврата: %s%n",
                         i+1,
                         histories.get(i).getBook().getBookName(),
                         histories.get(i).getReader().getFirstName(),
                         histories.get(i).getReader().getSurname(),
-                        histories.get(i).getGivenDate().toString());        
+                        histories.get(i).getGivenDate().toString(),
+                        histories.get(i).getLocalReturnDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+                
                 n++;
                 }
             }
@@ -200,7 +204,9 @@ public class App {
         history.setReader(readers.get(numberReader-1));
         Calendar c = new GregorianCalendar();
         history.setGivenDate(c.getTime());
-        
+        LocalDate localdate = LocalDate.now();
+        localdate = localdate.plusWeeks(2);
+        history.setLocalReturnDate(localdate);
         return history;
     }
 
@@ -211,7 +217,7 @@ public class App {
                 System.out.println(i+1+". "+books.get(i).toString());
                 booksForReaders++;
             }else{
-                System.out.println(i+1+". "+"Книга: \""+books.get(i).getBookName()+"\" нет в наличии");
+                System.out.println(i+1+". "+"Книги: \""+books.get(i).getBookName()+"\" нет в наличии");
             }
         }
         if(booksForReaders < 1){
