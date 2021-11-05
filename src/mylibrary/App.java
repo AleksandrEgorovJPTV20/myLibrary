@@ -23,7 +23,8 @@ public class App {
     private List<Book> books = new ArrayList<>();
     private List<Reader> readers = new ArrayList<>();
     private List<History> histories = new ArrayList<>();
-    private Keeping keeper = new SaverToFile();
+    //private Keeping keeper = new SaverToFile();
+    private Keeping keeper = new SaverToBase();
 
     public App() {
         books = keeper.loadBooks();
@@ -225,7 +226,7 @@ public void run(){
                 );
                 setNumbersBooks.add(i+1);
             }else if(books.get(i) != null){
-                System.out.printf("%d. %s. %s Нет наличии. Будет возвращена: %s%n"
+                System.out.printf("Книги %d. Автор: %s. %s Нет в наличии. Будет возвращена: %s%n"
                         ,i+1
                         ,books.get(i).getBookName()
                         ,cbAutors.toString()
