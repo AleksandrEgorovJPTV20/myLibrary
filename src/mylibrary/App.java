@@ -112,9 +112,6 @@ public void run(){
     private Set<Integer> printGivenBooks(){
         Set<Integer> setNumberGivenBooks = new HashSet<>();
         for (int i = 0; i < histories.size(); i++) {
-            //если history не null и книга не возварщена и книг в наличии меньше
-            // чем записано в quantity -
-            // печатаем книгу
             if(histories.get(i) != null 
                     && histories.get(i).getReturnedDate() == null
                     && histories.get(i).getBook().getCount()
@@ -197,12 +194,15 @@ public void run(){
         System.out.print("Введите номер читателя: ");
         int numberReader = insertNumber(setNumbersReaders);
         history.setBook(books.get(numberBook-1));
-        if(history.getBook().getCount() > 0){
-            history.getBook().setCount(history.getBook().getCount()-1);
+        if(books.get(numberBook - 1).getCount() > 0){
+            books.get(numberBook - 1).setCount(books.get(numberBook - 1).getCount()-1);
         }
         history.setReader(readers.get(numberReader-1));
         Calendar c = new GregorianCalendar();
         history.setGivenDate(c.getTime());
+        keeper.saveBooks(books);
+        histories.add(history);
+        keeper.saveHistories(histories);
     }
 
     private Set<Integer> printListBooks() {
