@@ -1,5 +1,6 @@
 package tools;
 
+import entity.Author;
 import entity.Book;
 import entity.History;
 import entity.Reader;
@@ -133,6 +134,45 @@ public class SaverToFile implements Keeping{
         
         
         return histories;
+    }
+
+    @Override
+    public void saveAuthors(List<Author> authors) {
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        
+        try {
+            fos = new FileOutputStream("authors");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(authors);
+            oos.flush();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.INFO, "Нет файла authors", ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Ошибка ввода", ex);
+        }
+    }
+
+    @Override
+    public List<Author> loadAuthors() {
+        List<Author> authors = new ArrayList<>();
+        
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream("histories");
+            ois = new ObjectInputStream(fis);
+            authors = (List<Author>) ois.readObject();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.INFO, "файл authors ещё не создан", ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Ошибка считывания", ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.INFO, "Класса Author не существует", ex);
+        }
+        
+        
+        return authors;
     }
     
 }
