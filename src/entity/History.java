@@ -3,13 +3,30 @@ package entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
 public class History implements Serializable{
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Reader reader;
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Book book;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date givenDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date returnedDate;
-    private LocalDate LocalReturnDate;
+
+    public History() {
+    }
 
     public Reader getReader() {
         return reader;
@@ -43,21 +60,19 @@ public class History implements Serializable{
         this.returnedDate = returnedDate;
     }
 
-    public LocalDate getLocalReturnDate() {
-        return LocalReturnDate;
+    public Long getId() {
+        return id;
     }
 
-    public void setLocalReturnDate(LocalDate LocalReturnDate) {
-        this.LocalReturnDate = LocalReturnDate;
+    public void setId(Long id) {
+        this.id = id;
     }
-
+    
     @Override
     public String toString() {
         return "History{" + "reader=" + reader
                 + ", book=" + book
                 + ", givenDate=" + givenDate
-                + ", returnedDate=" + returnedDate
-                + ", LocalReturnDate=" + LocalReturnDate + '}';
+                + ", returnedDate=" + returnedDate+ '}';        
     }
-    
 }

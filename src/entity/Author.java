@@ -23,6 +23,9 @@ public class Author implements Serializable{
     private String surname;
     private int birthYear;
 
+    public Author() {
+    }
+    
     public String getFirstName() {
         return firstName;
     }

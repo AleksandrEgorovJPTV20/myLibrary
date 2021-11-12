@@ -31,8 +31,8 @@ public class App {
     public App() {
         books = keeper.loadBooks();
         authors = keeper.loadAuthors();
-        //readers = keeper.loadReaders();
-        //histories = keeper.loadHistories();
+        readers = keeper.loadReaders();
+        histories = keeper.loadHistories();
         
     }
     
@@ -50,6 +50,8 @@ public void run(){
             System.out.println("7: Возврат книги");
             System.out.println("8: Добавить автора");
             System.out.println("9: Список авторов");
+            System.out.println("10: Выбор книг по автору");
+            System.out.println("11: ");
             int task = getNumber();
             switch (task) {
                 case 0:
@@ -91,6 +93,9 @@ public void run(){
                 case 9:
                     System.out.println("----- Список авторов -----");
                     printListAuthors();
+                    break;
+                case 10:
+                    selectionOfBooksByAuthor();
                     break;
                 default:
                     System.out.println("Введите номер из списка.");;
@@ -209,6 +214,9 @@ public void run(){
         System.out.print("Введите номер книги: ");
         int numberBook = insertNumber(setNumbersBooks);
         Set<Integer> setNumbersReaders = printListReaders();
+        if(setNumbersReaders.isEmpty()){
+            return;
+        }
         System.out.print("Введите номер читателя: ");
         int numberReader = insertNumber(setNumbersReaders);
         history.setBook(books.get(numberBook-1));
@@ -302,6 +310,9 @@ public void run(){
                 setNumbersReaders.add(i+1);
             }
         }
+        if(setNumbersReaders.isEmpty()){
+            System.out.println("Добавьте читателей!");
+        }
         return setNumbersReaders;
     }
 
@@ -331,5 +342,30 @@ public void run(){
         authors.add(author);
         keeper.saveAuthors(authors);
         System.out.println("-----------------------");        
+    }
+
+    private void selectionOfBooksByAuthor() {
+        System.out.println("----- Выборка книг по автору -----");
+        Set<Integer> setNumbersAuthors = printListAuthors();
+        if(setNumbersAuthors.isEmpty()){
+            System.out.println("Список авторов пуст. Добавьте автора!");
+            return;
+        }
+        System.out.println("Выберите номер автора: ");
+        Author author = authors.get(insertNumber(setNumbersAuthors));
+        for(int i = 0; i<books.size();i++){
+            List<Author>authorsBook = books.get(i).getAuthor();
+            for(int j = 0; j < authorsBook.size(); j++){
+                Author get = authorsBook.get(j);
+                if(author.equals(books.get(i).getAuthor())){
+                    System.out.printf("%d. %s %d"
+                        ,i+1
+                        ,books.get(i).getBookName()
+                        ,books.get(i).getPublishedYear()
+                    );
+                }
+            }
+        }
+        System.out.println("---------------------------------------");
     }
 }
