@@ -51,7 +51,7 @@ public void run(){
             System.out.println("8: Добавить автора");
             System.out.println("9: Список авторов");
             System.out.println("10: Выбор книг по автору");
-            System.out.println("11: ");
+            System.out.println("11: Выбор книг по символам/слову");
             int task = getNumber();
             switch (task) {
                 case 0:
@@ -95,7 +95,12 @@ public void run(){
                     printListAuthors();
                     break;
                 case 10:
+                    System.out.println("----- Выбор книг по автору -----");
                     selectionOfBooksByAuthor();
+                    break;
+                case 11:
+                    System.out.println("----- Выбор книг по символам -----");
+                    selectionOfBooksByWord();
                     break;
                 default:
                     System.out.println("Введите номер из списка.");;
@@ -367,5 +372,23 @@ public void run(){
             }
         }
         System.out.println("---------------------------------------");
+    }
+
+    private void selectionOfBooksByWord() {
+        System.out.println("----- Выбор книги по слову -----");
+        System.out.println("Введите часть слово книги: ");
+        String word = scanner.nextLine();
+        int n = 0;
+        for(int i = 0; i < books.size();i++){
+            if(books.get(i).getBookName().contains(word)){
+                System.out.printf("Данная часть слова или символы содержаться в книге: %s%n"
+                    ,books.get(i).getBookName());
+                n++;
+            }
+            
+        }
+        if(n == 0){
+            System.out.println("Книг содержащих данное слово или символы нет!");
+        }
     }
 }
