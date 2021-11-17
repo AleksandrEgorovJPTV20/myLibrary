@@ -400,7 +400,6 @@ public void run(){
     }
 
     private void selectionOfBooksByAuthor() {
-        System.out.println("----- Выборка книг по автору -----");
         Set<Integer> setNumbersAuthors = printListAuthors();
         if(setNumbersAuthors.isEmpty()){
             System.out.println("Список авторов пуст. Добавьте автора!");
@@ -425,7 +424,6 @@ public void run(){
     }
 
     private void selectionOfBooksByWord() {
-        System.out.println("----- Выбор книги по слову -----");
         System.out.println("Введите часть слово книги: ");
         String word = scanner.nextLine();
         int n = 0;
