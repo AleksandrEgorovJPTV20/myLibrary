@@ -29,13 +29,12 @@ public class saverToBase implements Keeping{
     @Override
     public void saveBooks(List<Book> books) {
         tx.begin();
-            for (int i = 0; i < books.size();i++) {
+            for (int i = 0; i < books.size(); i++) {
                 if(books.get(i).getId() == null){
-                    for (int j = 0; j < books.get(i).getAuthor().size(); j++) {
-                        em.persist(books.get(i).getAuthor().get(j));
-                    }
-                    em.persist(books.get(i));      
-                }         
+                    em.persist(books.get(i));
+                }else{
+                    em.merge(books.get(i));
+                }
             }
         tx.commit();
     }
@@ -59,6 +58,8 @@ public class saverToBase implements Keeping{
             for (int i = 0; i < authors.size(); i++) {
                 if(authors.get(i).getId() == null){
                     em.persist(authors.get(i));
+                }else{
+                    em.merge(authors.get(i));
                 }
             }
         tx.commit();
@@ -82,6 +83,8 @@ public class saverToBase implements Keeping{
             for (int i = 0; i < readers.size(); i++) {
                 if(readers.get(i).getId() == null){
                     em.persist(readers.get(i));
+                }else{
+                    em.merge(readers.get(i));
                 }
             }
         tx.commit();
@@ -105,6 +108,8 @@ public class saverToBase implements Keeping{
             for (int i = 0; i < histories.size(); i++) {
                 if(histories.get(i).getId() == null){
                     em.persist(histories.get(i));
+                }else{
+                    em.merge(histories.get(i));
                 }
             }
         tx.commit();
