@@ -25,10 +25,10 @@ import tools.saverToBase;
 
 public class App {
     private Scanner scanner = new Scanner(System.in);
-    private AuthorFacade authorFacade = new AuthorFacade();
-    private BookFacade bookFacade = new BookFacade();
-    private ReaderFacade readerFacade = new ReaderFacade();
-    private HistoryFacade historyFacade = new HistoryFacade();
+    private AuthorFacade authorFacade = new AuthorFacade(Author.class);
+    private BookFacade bookFacade = new BookFacade(Book.class);
+    private ReaderFacade readerFacade = new ReaderFacade(Reader.class);
+    private HistoryFacade historyFacade = new HistoryFacade(History.class);
 
     public App() {
     }
@@ -139,27 +139,21 @@ public void run(){
         histories.setReturnedDate(c.getTime());
         Book books = bookFacade.find(histories.getBook().getId());
         books.setCount(books.getCount()+1);
-        bookFacade.create(books);
-        historyFacade.create(histories);
+        bookFacade.edit(books);
+        historyFacade.edit(histories);
     }
     
     private Set<Integer> printGivenBooks(){
         Set<Integer> setNumberGivenBooks = new HashSet<>();
-        List<History> historiesWithGivenBooks = historyFacade.findWithGivenBooks();
-        for (int i = 0; i < historiesWithGivenBooks.size(); i++) {
-            if(historiesWithGivenBooks.get(i) != null 
-                    && historiesWithGivenBooks.get(i).getReturnedDate() == null
-                    && historiesWithGivenBooks.get(i).getBook().getCount()
-                        <historiesWithGivenBooks.get(i).getBook().getQuantity()
-                    ){
-                System.out.printf("%d. Книгу: %s читает %s %s%n",
-                        historiesWithGivenBooks.get(i).getId(),
-                        historiesWithGivenBooks.get(i).getBook().getBookName(),
-                        historiesWithGivenBooks.get(i).getReader().getFirstName(),
-                        historiesWithGivenBooks.get(i).getReader().getSurname()
-                );
-                setNumberGivenBooks.add(historiesWithGivenBooks.get(i).getId().intValue());
-            }
+        List<History> historyesWithGivenBooks = historyFacade.findWithGivenBooks();
+        for (int i = 0; i < historyesWithGivenBooks.size(); i++) {
+            System.out.printf("%d. Книгу: %s читает %s %s%n",
+                    historyesWithGivenBooks.get(i).getId(),
+                    historyesWithGivenBooks.get(i).getBook().getBookName(),
+                    historyesWithGivenBooks.get(i).getReader().getFirstName(),
+                    historyesWithGivenBooks.get(i).getReader().getSurname()
+            );
+            setNumberGivenBooks.add(historyesWithGivenBooks.get(i).getId().intValue());
         }
         if(setNumberGivenBooks.isEmpty()){
             System.out.println("Выданных книг нет");
@@ -234,6 +228,7 @@ public void run(){
         history.setReader(readers);
         Calendar c = new GregorianCalendar();
         history.setGivenDate(c.getTime());
+        bookFacade.edit(books);
         historyFacade.create(history);
     }
 
@@ -403,8 +398,8 @@ public void run(){
         for(int i = 0; i<books.size();i++){
             List<Author>authorsBook = books.get(i).getAuthor();
             for(int j = 0; j < authorsBook.size(); j++){
-                Author get = authorsBook.get(j);
-                if(author.equals(books.get(i).getAuthor())){
+                Author authorBook = authorsBook.get(j);
+                if(author.equals(authorBook)){
                     System.out.printf("%d. %s %d%n"
                         ,books.get(i).getId()
                         ,books.get(i).getBookName()
