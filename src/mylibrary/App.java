@@ -25,15 +25,22 @@ import tools.saverToBase;
 
 public class App {
     private Scanner scanner = new Scanner(System.in);
-    private AuthorFacade authorFacade = new AuthorFacade(Author.class);
-    private BookFacade bookFacade = new BookFacade(Book.class);
-    private ReaderFacade readerFacade = new ReaderFacade(Reader.class);
-    private HistoryFacade historyFacade = new HistoryFacade(History.class);
+    private AuthorFacade authorFacade;
+    private BookFacade bookFacade;
+    private ReaderFacade readerFacade;
+    private HistoryFacade historyFacade;
 
     public App() {
+        init();
     }
-    
-public void run(){
+
+    private void init(){
+        AuthorFacade authorFacade = new AuthorFacade(Author.class);
+        BookFacade bookFacade = new BookFacade(Book.class);
+        ReaderFacade readerFacade = new ReaderFacade(Reader.class);
+        HistoryFacade historyFacade = new HistoryFacade(History.class);
+    }
+    public void run(){
         String repeat = "r";
         do{
             System.out.println("Выберите номер задачи: ");
@@ -229,7 +236,7 @@ public void run(){
         Calendar c = new GregorianCalendar();
         history.setGivenDate(c.getTime());
         bookFacade.edit(books);
-        historyFacade.create(history);
+        historyFacade.edit(history);
     }
 
     private Set<Integer> printListBooks() {
@@ -342,7 +349,7 @@ public void run(){
         System.out.println("Список читателей: ");
         for (int i = 0; i < readers.size(); i++) {
             if(readers.get(i) != null){
-                System.out.printf("%d. %s %s. Телефон: &s&n"
+                System.out.printf("%d. %s %s. Телефон: %s%n"
                         ,readers.get(i).getId()
                         ,readers.get(i).getFirstName()
                         ,readers.get(i).getSurname()
@@ -395,17 +402,15 @@ public void run(){
         }
         System.out.println("Выберите номер автора: ");
         Author author = authorFacade.find((long)insertNumber(setNumbersAuthors));
+//        List<Book> listBooksByAuthor = bookFacade.findBooksByAuthor(author);
         for(int i = 0; i<books.size();i++){
             List<Author>authorsBook = books.get(i).getAuthor();
-            for(int j = 0; j < authorsBook.size(); j++){
-                Author authorBook = authorsBook.get(j);
-                if(author.equals(authorBook)){
-                    System.out.printf("%d. %s %d%n"
-                        ,books.get(i).getId()
-                        ,books.get(i).getBookName()
-                        ,books.get(i).getPublishedYear()
-                    );
-                }
+              if(authorsBook.contains(author)){
+                System.out.printf("%d. %s %d%n"
+                    ,books.get(i).getId()
+                    ,books.get(i).getBookName()
+                    ,books.get(i).getPublishedYear()
+                ); 
             }
         }
         System.out.println("---------------------------------------");

@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -57,6 +58,42 @@ public class Author implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 43 * hash + Objects.hashCode(this.firstName);
+        hash = 43 * hash + Objects.hashCode(this.surname);
+        hash = 43 * hash + this.birthYear;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Author other = (Author) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, other.surname)) {
+            return false;
+        }
+        if (this.birthYear != other.birthYear) {
+            return false;
+        }
+        return true;
+    }
+    
+
     @Override
     public String toString() {
         return "Author{"
