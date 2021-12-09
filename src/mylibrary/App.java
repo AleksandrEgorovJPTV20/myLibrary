@@ -35,10 +35,10 @@ public class App {
     }
 
     private void init(){
-        AuthorFacade authorFacade = new AuthorFacade(Author.class);
-        BookFacade bookFacade = new BookFacade(Book.class);
-        ReaderFacade readerFacade = new ReaderFacade(Reader.class);
-        HistoryFacade historyFacade = new HistoryFacade(History.class);
+        authorFacade = new AuthorFacade(Author.class);
+        bookFacade = new BookFacade(Book.class);
+        readerFacade = new ReaderFacade(Reader.class);
+        historyFacade = new HistoryFacade(History.class);
     }
     public void run(){
         String repeat = "r";
