@@ -5,56 +5,65 @@
  */
 package gui;
 
+import gui.components.ButtonComponent;
+import gui.components.CaptionComponent;
+import gui.components.EditComponent;
+import gui.components.InfoComponent;
 import gui.components.AuthorsComponent;
 import java.awt.Dimension;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import gui.components.ButtonComponent;
-import gui.components.CaptionComponent;
-import gui.components.ComboBoxComponent;
-import gui.components.EditComponent;
-import gui.components.InfoComponent;
-import javax.swing.Box;
 
+/**
+ *
+ * @author Melnikov
+ */
 public class GuiApp extends JFrame{
+private CaptionComponent captionComponent;
+private InfoComponent infoComponent;
+private EditComponent editComponent;
+private EditComponent publishedYearComponent;
+private EditComponent quantityComponent;
+private ButtonComponent buttonComponent;
+private AuthorsComponent listAuthorsComponent;
 
     public GuiApp() {
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
     private void initComponents() {
-        this.setPreferredSize(new Dimension(600, 400));
-        this.setMinimumSize(getPreferredSize());
-        this.setMaximumSize(getPreferredSize());
-        getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
+        this.setPreferredSize(new Dimension(600,400));
+        this.setMinimumSize(this.getPreferredSize());
+        this.setMaximumSize(this.getPreferredSize());
+        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         this.add(Box.createRigidArea(new Dimension(0,25)));
-        JPanel captionPanel = new CaptionComponent("Добавление новой книги в библиотеку", this.getWidth(), 30);
-        getContentPane().add(captionPanel);
-        JPanel infoComponent = new InfoComponent("Информация о добавлении книги в библиотеку", this.getWidth(), 30);
-        getContentPane().add(infoComponent);
+        captionComponent = new CaptionComponent("Добавление книги в библиотеку", this.getWidth(), 30);
+        this.add(captionComponent);
+        infoComponent = new InfoComponent("Информация о добавлении книги в библиотеку", this.getWidth(),27);
+        this.add(infoComponent);
         this.add(Box.createRigidArea(new Dimension(0,10)));
-        JPanel titlePanel = new EditComponent("Название книги: ",this.getWidth(), 31,250);
-        getContentPane().add(titlePanel);
-        JPanel listAuthorsComponent = new AuthorsComponent("Авторы книги: ", this.getWidth(),31,250);
-        getContentPane().add(listAuthorsComponent);
-        JPanel publishedYearPanel = new EditComponent("Год издания книги: ",this.getWidth(),31,70);
-        getContentPane().add(publishedYearPanel);
-        JPanel quantityPanel = new EditComponent("Количество экземпляров: ",this.getWidth(),31,50);
-        getContentPane().add(quantityPanel);
-        JPanel buttonAddBook = new ButtonComponent("Добавить книгу", this.getWidth(),40,150,160);
-        getContentPane().add(buttonAddBook);
+        editComponent = new EditComponent("Название книги:",this.getWidth(), 30, 300);
+        this.add(editComponent);
+        listAuthorsComponent = new AuthorsComponent("Авторы:", this.getWidth(), 120, 300);
+        this.add(listAuthorsComponent);
+        publishedYearComponent = new EditComponent("Год издания книги:", this.getWidth(), 30, 100);
+        this.add(publishedYearComponent);
+        quantityComponent = new EditComponent("Количество экземпляров:", this.getWidth(), 30, 50);
+        this.add(quantityComponent);
+        buttonComponent = new ButtonComponent("Добавить книгу", this.getWidth(), 30, 350, 150);
+        this.add(buttonComponent);
     }
 
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new GuiApp().setVisible(true);
             }
         });
     }
 
-} 
+}

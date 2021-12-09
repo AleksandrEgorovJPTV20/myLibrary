@@ -23,40 +23,42 @@ public class AuthorsComponent extends JPanel{
     private JLabel title;
     private JList<Author> list;
     
-    public AuthorsComponent(String text,int widthPanel,int heightPanel, int widthEdit) {
-        initComponents(text,widthPanel,heightPanel,widthEdit);
+    public AuthorsComponent(String text, int widthWindow, int heightPanel, int widthEditor) {
+        initComponents(text, widthWindow, heightPanel,widthEditor);
     }
-    private void initComponents(String text,int widthPanel,int heightPanel,int widthEdit) {
-        this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
-        this.setPreferredSize(new Dimension(widthPanel,heightPanel));
-        this.setMaximumSize(this.getPreferredSize());
-        this.setMinimumSize(this.getPreferredSize());
-        title = new JLabel(text);
-        title.setPreferredSize(new Dimension(widthPanel/3,27));
-        title.setMinimumSize(this.title.getPreferredSize());
-        title.setMaximumSize(this.title.getPreferredSize());
-        title.setHorizontalAlignment(JLabel.RIGHT);
-        title.setAlignmentY(TOP_ALIGNMENT);
-        title.setFont(new Font("Tahoma",1,12));
-        this.add(Box.createRigidArea(new Dimension(5,0)));
-        list = new JList<>();
-        list.setModel(getListModel());
-        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        list.setLayoutOrientation(JList.HEIGHT);
-        JScrollPane scrollPane = new JScrollPane(list);
-        scrollPane.setPreferredSize(new Dimension(widthPanel,heightPanel));
-        scrollPane.setMaximumSize(list.getPreferredSize());
-        scrollPane.setMinimumSize(list.getPreferredSize());
-        scrollPane.setAlignmentX(LEFT_ALIGNMENT);
-        scrollPane.setAlignmentY(TOP_ALIGNMENT);
-        this.add(title);
-        this.add(scrollPane);
+
+    private void initComponents(String text, int widthWindow, int heightPanel,int widthEditor) {
+       this.setPreferredSize(new Dimension(widthWindow,heightPanel));
+       this.setMinimumSize(this.getPreferredSize());
+       this.setMaximumSize(this.getPreferredSize());
+       this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+       title = new JLabel(text);
+       title.setPreferredSize(new Dimension(widthWindow/3,27));
+       title.setMinimumSize(title.getPreferredSize());
+       title.setMaximumSize(title.getPreferredSize());
+       title.setHorizontalAlignment(JLabel.RIGHT);
+       title.setAlignmentY(TOP_ALIGNMENT);
+       title.setFont(new Font("Tahoma",0,12));
+       this.add(title);
+       this.add(Box.createRigidArea(new Dimension(5,0)));
+       list = new JList<>();
+       list.setModel(getListModel());
+       list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+       list.setLayoutOrientation(JList.HEIGHT);
+       JScrollPane scrollPane = new JScrollPane(list);
+       scrollPane.setPreferredSize(new Dimension(widthEditor,heightPanel));
+       scrollPane.setMinimumSize(scrollPane.getPreferredSize());
+       scrollPane.setMaximumSize(scrollPane.getPreferredSize());
+       scrollPane.setAlignmentX(LEFT_ALIGNMENT);
+       scrollPane.setAlignmentY(TOP_ALIGNMENT);
+       this.add(scrollPane);
     }
+
     private ListModel<Author> getListModel() {
         AuthorFacade authorFacade = new AuthorFacade(Author.class);
         List<Author> authors = authorFacade.findAll();
         DefaultListModel<Author> defaultListModel = new DefaultListModel<>();
-        for(Author author: authors){
+        for (Author author : authors) {
             defaultListModel.addElement(author);
         }
         return defaultListModel;
