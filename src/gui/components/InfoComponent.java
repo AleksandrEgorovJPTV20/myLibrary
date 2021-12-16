@@ -25,4 +25,8 @@ public class InfoComponent extends JPanel{
        this.add(info);
     }
 
+    public JLabel getInfo() {
+        return info;
+    }
+    
 }

@@ -36,4 +36,8 @@ public class EditComponent extends JPanel{
        this.add(editor);
     }
 
+    public JTextField getEditor() {
+        return editor;
+    }
+    
 }

@@ -36,4 +36,8 @@ public class ButtonComponent extends JPanel{
        this.add(button);
     }
 
+    public JButton getButton() {
+        return button;
+    }
+    
 }

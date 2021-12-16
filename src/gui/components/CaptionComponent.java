@@ -23,5 +23,5 @@ public class CaptionComponent extends JPanel{
        caption.setFont(new Font("Tahoma",1,16));
        this.add(caption);
     }
-
+    
 }
