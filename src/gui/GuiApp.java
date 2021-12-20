@@ -5,24 +5,11 @@
  */
 package gui;
 
-import entity.Author;
-import entity.Book;
-import facade.BookFacade;
-import gui.components.ButtonComponent;
-import gui.components.CaptionComponent;
-import gui.components.EditComponent;
-import gui.components.InfoComponent;
-import gui.components.ListAuthorsComponent;
+import gui.components.ListBooksComponent;
 import gui.components.TabAddAuthorComponent;
 import gui.components.TabAddBookComponent;
 import gui.components.TabAddReaderComponent;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -34,6 +21,7 @@ import javax.swing.JTabbedPane;
 public class GuiApp extends JFrame{
     public static final int WIDTH_WINDOW = 700;
     public static final int HEIGHT_WINDOW = 450;
+    private ListBooksComponent listBooksComponent;
     
     public GuiApp() {
         initComponents();
@@ -56,6 +44,10 @@ public class GuiApp extends JFrame{
         managerTabbed.addTab("Добавить читателя", tabAddReaderComponent);
         TabAddAuthorComponent tabAddAuthorComponent = new TabAddAuthorComponent(this.getWidth());
         managerTabbed.addTab("Добавить автора", tabAddAuthorComponent);
+        JPanel guestPanel = new JPanel();
+        listBooksComponent = new ListBooksComponent(false, "Книги", GuiApp.HEIGHT_WINDOW, GuiApp.HEIGHT_WINDOW - 80, GuiApp.WIDTH_WINDOW);
+        guestPanel.add(listBooksComponent);
+        this.add(guestPanel);
         
     }
     
