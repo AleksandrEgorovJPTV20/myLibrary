@@ -2,10 +2,10 @@ package gui.components;
 
 import entity.Author;
 import facade.AuthorFacade;
-import gui.GuiApp;
 import gui.components.renderers.ListAuthorCellRenderer;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.ScrollPane;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
@@ -21,17 +23,17 @@ import javax.swing.ListSelectionModel;
 public class ListAuthorsComponent extends JPanel{
     private JLabel title;
     private JList<Author> list;
-    public ListAuthorsComponent(String text, int left, int heightPanel, int widthEditor) {
-        initComponents(text, left, heightPanel,widthEditor);
+    public ListAuthorsComponent(String text, int widthWindow, int heightPanel, int widthEditor) {
+        initComponents(text, widthWindow, heightPanel,widthEditor);
     }
 
-    private void initComponents(String text, int left, int heightPanel,int widthEditor) {
-       this.setPreferredSize(new Dimension(GuiApp.WIDTH_WINDOW,heightPanel));
+    private void initComponents(String text, int widthWindow, int heightPanel,int widthEditor) {
+       this.setPreferredSize(new Dimension(widthWindow,heightPanel));
        this.setMinimumSize(this.getPreferredSize());
        this.setMaximumSize(this.getPreferredSize());
        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
        title = new JLabel(text);
-       title.setPreferredSize(new Dimension(left,27));
+       title.setPreferredSize(new Dimension(widthWindow/3,27));
        title.setMinimumSize(title.getPreferredSize());
        title.setMaximumSize(title.getPreferredSize());
        title.setHorizontalAlignment(JLabel.RIGHT);
