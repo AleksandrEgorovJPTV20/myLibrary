@@ -1,5 +1,7 @@
 package facade;
 
+import entity.Role;
+import entity.User;
 import entity.UserRoles;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,5 +25,9 @@ public class UserRolesFacade extends AbstractFacade<UserRoles>{
     private void init(){
         Singleton singleton = Singleton.getInstance();
         em = singleton.getEntityManager();
+    }
+    
+    public Role getTopRole(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

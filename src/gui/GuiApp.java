@@ -37,6 +37,8 @@ public class GuiApp extends JFrame{
     private ButtonComponent buttonChangePanelComponent;
     private ListBooksComponent listBooksComponent;
     public GuiApp guiApp = this;
+    public static User user;
+    public static Role role;
     private UserFacade userFacade = new UserFacade();
     private RoleFacade roleFacade = new RoleFacade();
     private UserRolesFacade userRolesFacade = new UserRolesFacade();
