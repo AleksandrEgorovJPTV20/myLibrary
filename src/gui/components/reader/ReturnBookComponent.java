@@ -1,5 +1,6 @@
-package gui.components;
+package gui.components.reader;
 
+import gui.components.*;
 import entity.Author;
 import entity.Book;
 import facade.BookFacade;
@@ -10,11 +11,10 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class TabAddBookComponent extends JPanel{
+public class ReturnBookComponent extends JPanel{
     private CaptionComponent captionComponent;
     private InfoComponent infoComponent;
     private EditComponent nameBookComponent;
@@ -23,11 +23,11 @@ public class TabAddBookComponent extends JPanel{
     private ButtonComponent buttonComponent;
     private ListAuthorsComponent listAuthorsComponent;
     
-    public TabAddBookComponent(int widthPanel) {
-        initComponents(widthPanel);
+    public ReturnBookComponent(int widthPanel, int heightPanel) {
+        initComponents(widthPanel, heightPanel);
     }    
 
-    private void initComponents(int widthPanel) {
+    private void initComponents(int widthPanel, int heightPanel) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createRigidArea(new Dimension(0,25)));
         captionComponent = new CaptionComponent("Добавление книги в библиотеку", widthPanel, 30);
