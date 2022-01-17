@@ -1,8 +1,11 @@
-package gui.components;
+package gui.components.manager;
 
+import gui.components.reader.*;
+import gui.components.*;
 import entity.Author;
 import entity.Book;
 import facade.BookFacade;
+import gui.GuiApp;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -13,7 +16,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 public class TabAddBookComponent extends JPanel{
     private CaptionComponent captionComponent;
     private InfoComponent infoComponent;
@@ -23,25 +25,25 @@ public class TabAddBookComponent extends JPanel{
     private ButtonComponent buttonComponent;
     private ListAuthorsComponent listAuthorsComponent;
     
-    public TabAddBookComponent(int widthPanel, int heightPanel) {
-        initComponents(widthPanel, heightPanel);
+    public TabAddBookComponent() {
+        initComponents();
     }    
 
-    private void initComponents(int widthPanel, int heightPanel) {
+    private void initComponents() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createRigidArea(new Dimension(0,25)));
-        captionComponent = new CaptionComponent("Добавление книги в библиотеку", widthPanel, 30);
+        captionComponent = new CaptionComponent("Добавление книги в библиотеку", GuiApp.WIDTH_WINDOW, 30);
         this.add(captionComponent);
-        infoComponent = new InfoComponent("", widthPanel,30);
+        infoComponent = new InfoComponent("", GuiApp.WIDTH_WINDOW,30);
         this.add(infoComponent);
         this.add(Box.createRigidArea(new Dimension(0,10)));
-        nameBookComponent = new EditComponent("Название книги:",widthPanel, 30, 300);
+        nameBookComponent = new EditComponent("Название книги:",GuiApp.WIDTH_WINDOW, 30, 300);
         this.add(nameBookComponent);
-        listAuthorsComponent = new ListAuthorsComponent("Авторы:", widthPanel, 120, 300);
+        listAuthorsComponent = new ListAuthorsComponent("Авторы:", GuiApp.WIDTH_WINDOW, 120, 300);
         this.add(listAuthorsComponent);
-        publishedYearComponent = new EditComponent("Год издания книги:", widthPanel, 30, 100);
+        publishedYearComponent = new EditComponent("Год издания книги:", GuiApp.WIDTH_WINDOW, 30, 100);
         this.add(publishedYearComponent);
-        quantityComponent = new EditComponent("Количество экземпляров:", widthPanel, 30, 50);
+        quantityComponent = new EditComponent("Количество экземпляров:", GuiApp.WIDTH_WINDOW, 30, 50);
         this.add(quantityComponent);
         buttonComponent = new ButtonComponent("Добавить книгу", 30, 350, 150);
         this.add(buttonComponent);

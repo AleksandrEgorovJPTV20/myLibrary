@@ -1,7 +1,9 @@
-package gui.components;
+package gui.components.manager;
 
+import gui.components.*;
 import entity.Author;
 import facade.AuthorFacade;
+import gui.GuiApp;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -19,23 +21,23 @@ public class TabAddAuthorComponent extends JPanel{
     private EditComponent birthYearComponent;
     private ButtonComponent buttonComponent;
     
-    public TabAddAuthorComponent(int widthPanel, int heightPanel) {
-        initComponents(widthPanel, heightPanel);
+    public TabAddAuthorComponent() {
+        initComponents();
     }
 
-    private void initComponents(int widthPanel, int heightPanel) {
+    private void initComponents() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createRigidArea(new Dimension(0,25)));
-        captionComponent = new CaptionComponent("Добавление нового автора", widthPanel, 31);
+        captionComponent = new CaptionComponent("Добавление нового автора", GuiApp.WIDTH_WINDOW, 31);
         this.add(captionComponent); 
-        infoComponent = new InfoComponent("", widthPanel, 30);
+        infoComponent = new InfoComponent("", GuiApp.WIDTH_WINDOW, 30);
         this.add(infoComponent);
         this.add(Box.createRigidArea(new Dimension(0,10)));
-        nameComponent = new EditComponent("Имя автора:", widthPanel, 30, 300);
+        nameComponent = new EditComponent("Имя автора:", GuiApp.WIDTH_WINDOW, 30, 300);
         this.add(nameComponent);
-        surNameComponent = new EditComponent("Фамилия автора:", widthPanel, 30, 300);
+        surNameComponent = new EditComponent("Фамилия автора:", GuiApp.WIDTH_WINDOW, 30, 300);
         this.add(surNameComponent);
-        birthYearComponent = new EditComponent("Год рождения автора:", widthPanel, 30, 200);
+        birthYearComponent = new EditComponent("Год рождения автора:", GuiApp.WIDTH_WINDOW, 30, 200);
         this.add(birthYearComponent);
         buttonComponent = new ButtonComponent("Добавить автора", 30, 350, 150);
         this.add(buttonComponent);

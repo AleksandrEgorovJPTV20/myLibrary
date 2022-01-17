@@ -1,7 +1,9 @@
-package gui.components;
+package gui.components.director;
 
+import gui.components.*;
 import entity.Reader;
 import facade.ReaderFacade;
+import gui.GuiApp;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -19,23 +21,23 @@ public class TabAddReaderComponent extends JPanel{
     private EditComponent phoneComponent;
     private ButtonComponent buttonComponent;
     
-    public TabAddReaderComponent(int widthPanel, int heightPanel) {
-        initComponents(widthPanel, heightPanel);
+    public TabAddReaderComponent() {
+        initComponents();
     }
 
-    private void initComponents(int widthPanel, int heightPanel) {
+    private void initComponents() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createRigidArea(new Dimension(0,25)));
-        captionComponent = new CaptionComponent("Добавление нового читателя", widthPanel, 31);
+        captionComponent = new CaptionComponent("Добавление нового читателя", GuiApp.WIDTH_WINDOW, 31);
         this.add(captionComponent); 
-        infoComponent = new InfoComponent("", widthPanel, 30);
+        infoComponent = new InfoComponent("", GuiApp.WIDTH_WINDOW, 30);
         this.add(infoComponent);
         this.add(Box.createRigidArea(new Dimension(0,10)));
-        nameComponent = new EditComponent("Имя:", widthPanel, 30, 300);
+        nameComponent = new EditComponent("Имя:", GuiApp.WIDTH_WINDOW, 30, 300);
         this.add(nameComponent);
-        lastNameComponent = new EditComponent("Фамилия:", widthPanel, 30, 300);
+        lastNameComponent = new EditComponent("Фамилия:", GuiApp.WIDTH_WINDOW, 30, 300);
         this.add(lastNameComponent);
-        phoneComponent = new EditComponent("Телефон:", widthPanel, 30, 200);
+        phoneComponent = new EditComponent("Телефон:", GuiApp.WIDTH_WINDOW, 30, 200);
         this.add(phoneComponent);
         buttonComponent = new ButtonComponent("Добавить читателя", 30, 350, 150);
         this.add(buttonComponent);
