@@ -23,8 +23,9 @@ import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 public class ComboBoxBooksComponent extends JPanel{
-    private JLabel title;
-    private JComboBox<Book> comboBox;
+   private JLabel title;
+   private JComboBox<Book> comboBox;
+
     /**
      * Список книг библиотеки с заголовком
      * @param text текст в JLabel
@@ -36,9 +37,11 @@ public class ComboBoxBooksComponent extends JPanel{
         initComponents(text, left, heightPanel,widthEditor);
     }
 
+
     private void initComponents(String text, int left, int heightPanel,int widthEditor) {
 
        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+//       this.setBorder(BorderFactory.createLineBorder(Color.yellow));
        this.setPreferredSize(new Dimension(GuiApp.WIDTH_WINDOW,heightPanel));
        this.setMinimumSize(this.getPreferredSize());
        this.setMaximumSize(this.getPreferredSize());
@@ -46,26 +49,22 @@ public class ComboBoxBooksComponent extends JPanel{
        title.setPreferredSize(new Dimension(left,heightPanel));
        title.setMinimumSize(title.getPreferredSize());
        title.setMaximumSize(title.getPreferredSize());
-       comboBox = new JComboBox<>();
-       title.setPreferredSize(new Dimension(left,27));
        title.setHorizontalAlignment(JLabel.RIGHT);
+       comboBox = new JComboBox<>();
 //       title.setAlignmentY(TOP_ALIGNMENT);
        title.setFont(new Font("Tahoma",0,12));
        this.add(title);
-       this.add(Box.createRigidArea(new Dimension(5,0)));  
-       this.add(Box.createRigidArea(new Dimension(0,10)));
-           
-       
+       this.add(Box.createRigidArea(new Dimension(5,0)));
        comboBox.setModel(getComboBoxModel());
        comboBox.setRenderer(new ListBooksCellRenderer());
        comboBox.setSelectedIndex(-1);
-       comboBox.setPreferredSize(new Dimension(widthEditor, heightPanel));
+       comboBox.setPreferredSize(new Dimension(widthEditor,heightPanel));
        comboBox.setMinimumSize(comboBox.getPreferredSize());
        comboBox.setMaximumSize(comboBox.getPreferredSize());
        this.add(comboBox);
     }
 
-    private ComboBoxModel<Book> getComboBoxModel() {
+    public ComboBoxModel<Book> getComboBoxModel() {
         BookFacade bookFacade = new BookFacade(Book.class);
         List<Book> books = bookFacade.findAll();
 
