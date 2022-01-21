@@ -32,7 +32,7 @@ import javax.swing.JTabbedPane;
 
 public class GuiApp extends JFrame{
     public static final int WIDTH_WINDOW = 700;
-    public static final int HEIGHT_WINDOW = 450;
+    public static final int HEIGHT_WINDOW = 500;
     private ButtonComponent buttonChangePanelComponent;
     private InfoComponent infoTopComponent;
     private ReaderComponent readerComponent;
