@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 
@@ -23,15 +24,18 @@ public class EditAuthorComponent extends JPanel{
     private EditComponent birthYearComponent;
     private ButtonComponent buttonComponent;
     private ComboBoxAuthorsComponent comboBoxAuthorsComponent;
+    private Author editAuthor;
+    private AuthorFacade authorFacade;
     
     public EditAuthorComponent() {
+        authorFacade = new AuthorFacade(Author.class);
         initComponents();
     }
 
     private void initComponents() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createRigidArea(new Dimension(0,25)));
-        captionComponent = new CaptionComponent("Добавление нового автора", GuiApp.WIDTH_WINDOW, 31);
+        captionComponent = new CaptionComponent("Изменить автора", GuiApp.WIDTH_WINDOW, 31);
         this.add(captionComponent); 
         infoComponent = new InfoComponent("", GuiApp.WIDTH_WINDOW, 30);
         this.add(infoComponent);
@@ -46,13 +50,10 @@ public class EditAuthorComponent extends JPanel{
         this.add(birthYearComponent);
         buttonComponent = new ButtonComponent("Добавить автора", 30, 350, 150);
         this.add(buttonComponent);
-        buttonComponent.getButton().addActionListener(ButtonAddReader());
-    }
-    private ActionListener ButtonAddReader(){
-        return new ActionListener(){
+        buttonComponent.getButton().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                Author author = new Author();
+            public void actionPerformed(ActionEvent e) {
+               Author author = authorFacade.find(editAuthor.getId());
                 if(nameComponent.getEditor().getText().isEmpty()){
                     infoComponent.getInfo().setForeground(Color.red);
                     infoComponent.getInfo().setText("Введите имя автора");
@@ -77,22 +78,35 @@ public class EditAuthorComponent extends JPanel{
                 AuthorFacade authorFacade = new AuthorFacade(Author.class);
                 
                 try {
-                    authorFacade.create(author);
-                    infoComponent.getInfo().setText("Читатель успешно добавлен");
+                    authorFacade.edit(author);
+                    infoComponent.getInfo().setText("Автор успешно изменён");
                     infoComponent.getInfo().setForeground(Color.BLUE);
-                    birthYearComponent.getEditor().setText("");
-                    surNameComponent.getEditor().setText("");
-                    nameComponent.getEditor().setText("");
-                } catch (Exception e) {
+                    comboBoxAuthorsComponent.getComboBox().setModel(comboBoxAuthorsComponent.getComboBoxModel());
+                    comboBoxAuthorsComponent.getComboBox().setSelectedIndex(-1);
+                } catch (Exception ex) {
                     infoComponent.getInfo().setForeground(Color.red);
-                    infoComponent.getInfo().setText("Читателя добавить не удалось");
+                    infoComponent.getInfo().setText("Автора изменить не удалось");
                 }
             }
-        };
-        comboBoxAuthorsComponent.getComboBox().addItemListener(new ItemListener() {
+        });
+    comboBoxAuthorsComponent.getComboBox().addItemListener(new ItemListener() {
+
             @Override
             public void itemStateChanged(ItemEvent e) {
+                JComboBox comboBox = (JComboBox) e.getSource();
+               if(comboBox.getSelectedIndex() == -1){
+                    nameComponent.getEditor().setText("");
+                    surNameComponent.getEditor().setText("");
+                    birthYearComponent.getEditor().setText("");
+               }else{
+                    editAuthor = (Author) e.getItem();
+                    nameComponent.getEditor().setText(editAuthor.getFirstName());
+                    surNameComponent.getEditor().setText(editAuthor.getSurname());
+                    birthYearComponent.getEditor().setText(((Integer)editAuthor.getBirthYear()).toString());
+                    
+               }  
             }
         });
     }
+         
 }

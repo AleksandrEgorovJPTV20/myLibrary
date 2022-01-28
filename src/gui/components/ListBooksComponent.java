@@ -3,7 +3,7 @@ package gui.components;
 import entity.Book;
 import facade.BookFacade;
 import gui.GuiApp;
-import gui.components.renderers.ListAuthorCellRenderer;
+import gui.components.renderers.ListAuthorsCellRenderer;
 import gui.components.renderers.ListBooksCellRenderer;
 import java.awt.Dimension;
 import java.awt.Font;

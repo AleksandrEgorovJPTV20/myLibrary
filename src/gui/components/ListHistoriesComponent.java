@@ -6,7 +6,7 @@ import entity.Reader;
 import facade.BookFacade;
 import facade.HistoryFacade;
 import gui.GuiApp;
-import gui.components.renderers.ListAuthorCellRenderer;
+import gui.components.renderers.ListAuthorsCellRenderer;
 import gui.components.renderers.ListBooksCellRenderer;
 import gui.components.renderers.ListHistoriesCellRenderer;
 import java.awt.Dimension;

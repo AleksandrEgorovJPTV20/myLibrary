@@ -2,7 +2,7 @@ package gui.components;
 
 import entity.Author;
 import facade.AuthorFacade;
-import gui.components.renderers.ListAuthorCellRenderer;
+import gui.components.renderers.ListAuthorsCellRenderer;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.ScrollPane;
@@ -23,6 +23,7 @@ import javax.swing.ListSelectionModel;
 public class ListAuthorsComponent extends JPanel{
     private JLabel title;
     private JList<Author> list;
+    
     public ListAuthorsComponent(String text, int widthWindow, int heightPanel, int widthEditor) {
         initComponents(text, widthWindow, heightPanel,widthEditor);
     }
@@ -43,7 +44,7 @@ public class ListAuthorsComponent extends JPanel{
        this.add(Box.createRigidArea(new Dimension(5,0)));
        list = new JList<>();
        list.setModel(getListModel());
-       list.setCellRenderer(new ListAuthorCellRenderer());
+       list.setCellRenderer(new ListAuthorsCellRenderer());
        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
        list.setLayoutOrientation(JList.HEIGHT);
        JScrollPane scrollPane = new JScrollPane(list);

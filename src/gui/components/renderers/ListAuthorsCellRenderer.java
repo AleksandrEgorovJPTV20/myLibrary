@@ -10,7 +10,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 
 
-public class ListAuthorCellRenderer extends DefaultListCellRenderer{
+public class ListAuthorsCellRenderer extends DefaultListCellRenderer{
     private final Color background = new Color(0, 100, 255, 15);
     private final Color defaultBackground = (Color) UIManager.get("List.background");
     
@@ -20,6 +20,7 @@ public class ListAuthorCellRenderer extends DefaultListCellRenderer{
             if(component instanceof JLabel){
                 JLabel label = (JLabel) component;
                 Author author = (Author) value;
+                if(author == null) return component;
                 label.setText(String.format("%s %s. %d"
                         ,author.getFirstName()
                         ,author.getSurname()
